@@ -8,10 +8,14 @@ function App() {
 
   const handleClick = (value) => {
     if (value === "=") {
-      try {
-        const evaluatedResult = eval(expression);
-        setResult(evaluatedResult);
-      } catch (error) {
+      if (expression) {
+        try {
+          const evaluatedResult = eval(expression);
+          setResult(evaluatedResult);
+        } catch (error) {
+          setResult("Error");
+        }
+      } else {
         setResult("Error");
       }
     } else if (value === "C") {
@@ -19,6 +23,7 @@ function App() {
       setResult("");
     } else {
       setExpression(expression + value);
+      setResult(""); 
     }
   };
 
@@ -26,7 +31,7 @@ function App() {
     <div className="App">
       <div className="calculator">
         <h1>React Calculator</h1>
-        <input name="expression" value={expression} readOnly />
+        <input type="text" name="expression" value={expression} readOnly />
         <div className="result">{result}</div>
         <div className="button-holder">
           <ButtonHolder handleClick={handleClick} />
